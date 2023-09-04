@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app.Database.DatabaseModel import Base
-from app.Database.DatabaseConnection import DatabaseConnection
+from app.Classes.DatabaseConnection import DatabaseConnection
 from app.Database.DatabaseRepository import DatabaseRepository
 from app.Database.DatabaseService import DatabaseService
 from app.Database.DatabaseRouter import DatabaseRouter
