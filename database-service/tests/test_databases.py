@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from os import path
+from os import path, remove
 from time import sleep
 from app.api import app
 
@@ -51,6 +51,9 @@ def test_backup_db():
 
     assert response.status_code == 200
     assert path.exists("file.gz") == True
+
+    remove("file.gz")
+
 
 
 def test_delete_db():
