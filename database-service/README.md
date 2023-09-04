@@ -30,8 +30,8 @@ pip install -r requirements.txt
 ```
 * Set required environment vars (or use .env file) 
 ```bash
-export CELERY_CONNECTION_STRING=<>
-export DATABASE_CONNECTION_STRING=postgresql+psycopg2://<username>:<password>@<hostname>/<database>
+export CELERY_BROKER_URI="pyamqp://<username>@<hostname>//"
+export DATABASE_CONNECTION_STRING="postgresql+psycopg2://<username>:<password>@<hostname>/<database>"
 ```
 
 * Run tests 
