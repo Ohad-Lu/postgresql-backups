@@ -1,7 +1,7 @@
-from fastapi.testclient import TestClient
-from os import path, remove
 from time import sleep
+from os import path, remove
 from app.api import app
+from fastapi.testclient import TestClient
 
 client = TestClient(app)
 db_json = {
@@ -33,7 +33,7 @@ def test_get_db():
 
 
 def test_get_all_dbs():
-    response = client.get(f"/databases/get_all")
+    response = client.get("/databases/get_all")
 
     assert response.status_code == 200
     assert response.json() == [db_json]

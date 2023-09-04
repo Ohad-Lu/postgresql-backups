@@ -15,7 +15,7 @@ class AbstractRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, item):
+    def update(self, id, item):
         raise NotImplementedError
 
     @abstractmethod

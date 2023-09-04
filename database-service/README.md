@@ -33,7 +33,10 @@ pip install -r requirements.txt
 export CELERY_BROKER_URI="pyamqp://<username>@<hostname>//"
 export DATABASE_CONNECTION_STRING="postgresql+psycopg2://<username>:<password>@<hostname>/<database>"
 ```
-
+* Run worker 
+```bash
+celery -A app.Database.database_tasks worker
+```
 * Run tests 
 ```bash
 pytest
@@ -42,7 +45,4 @@ pytest
 ```bash
 uvicorn app.api:app --host localhost --port 5000
 ```
-* Run worker 
-```bash
-celery -A app.Database.database_tasks worker
-```
+
