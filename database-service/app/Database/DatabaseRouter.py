@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from app.Schemas.Database import DatabaseSchema
 from app.Database.DatabaseService import DatabaseService
 
+
 class DatabaseRouter:
     def __init__(self, database_service: DatabaseService) -> None:
         self.database_service = database_service

@@ -42,8 +42,9 @@ def test_get_all_dbs():
 def test_update_db():
     db_json["name"] = "changed_name"
     patch_response = client.patch(f"/databases/update/{db_json['id']}", json=db_json)
-    
+
     assert patch_response.status_code == 200
+
 
 def test_backup_db():
     response = client.get(f"/databases/backup/{db_json['id']}")
@@ -53,7 +54,6 @@ def test_backup_db():
     assert path.exists("file.gz") == True
 
     remove("file.gz")
-
 
 
 def test_delete_db():
