@@ -2,6 +2,7 @@
 # Database service
 ## micro-service to manage the diffrent target databases
 ### [Documantation](http://localhost:5000/docs)
+### Structure: api -> router -> service -> repository -> model
 ### How to run  
 * Create python virtual environment 
 ```
