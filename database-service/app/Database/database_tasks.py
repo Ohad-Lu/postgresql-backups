@@ -5,7 +5,7 @@ from app.Config import config
 import boto3
 from botocore.exceptions import ClientError
 
-app = Celery("tasks", broker=config.celery_broker_uri)
+app = Celery(config.celery_queue_name, broker=config.celery_broker_uri)
 
 
 @app.task
