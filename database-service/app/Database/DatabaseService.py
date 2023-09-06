@@ -1,6 +1,7 @@
-from app.Database.database_tasks import backup_db_task
+from app.Database.database_tasks import backup_db_task, upload_to_aws_task
 from app.Database.DatabaseRepository import DatabaseRepository
 from app.Classes.Service import Service
+from app.Config import config
 
 
 class DatabaseService(Service):
@@ -9,7 +10,7 @@ class DatabaseService(Service):
 
     def backup_db(self, db_id: int, dest_filename):
         db = self.repository.get_by_id(db_id)
-        return backup_db_task.apply_async(
+        backup_db_task.apply_async(
             args=(
                 db.hostname,
                 db.username,
