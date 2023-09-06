@@ -13,5 +13,6 @@ class Storage(Base):
     name: Mapped[str] = mapped_column(String(30))
     type: Mapped[str] = mapped_column(String(30))
 
-    bucket_name: Mapped[str] = mapped_column(String(30))
-    token: Mapped[str] = mapped_column(String(30))
+    aws_bucket_name: Mapped[str] = mapped_column(String(30))
+    aws_secret_access_id: Mapped[str] = mapped_column(String(50))
+    aws_access_key_id: Mapped[str] = mapped_column(String(50))
