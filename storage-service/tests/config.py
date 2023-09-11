@@ -8,9 +8,10 @@ item_json = {
     "id": 0,
     "name": "aws-test",
     "type": "s3",
-    "aws_bucket_name": environ["PYTEST_AWS_BUCKET_NAME"],
-    "aws_secret_access_id": environ["PYTEST_AWS_SECRET_ACCESS_ID"],
-    "aws_access_key_id": environ["PYTEST_AWS_ACCESS_KEY_ID"],
+    "s3_endpoint_url": environ["PYTEST_S3_ENDPOINT_URL"],
+    "s3_bucket_name": environ["PYTEST_S3_BUCKET_NAME"],
+    "s3_secret_access_key": environ["PYTEST_S3_SECRET_ACCESS_KEY"],
+    "s3_access_key_id": environ["PYTEST_S3_ACCESS_KEY_ID"],
 }
 
 prefix = "/storages"
