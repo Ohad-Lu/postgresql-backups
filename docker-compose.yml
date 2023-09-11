@@ -1,0 +1,67 @@
+services:
+  minio:
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    volumes:
+      - ${HOME}/minio/data:/data
+    environment:
+      MINIO_ROOT_USER: "minio_access_key"
+      MINIO_ROOT_PASSWORD: "minio_secret_key"
+    command:
+      - server
+      - /data 
+      - --console-address 
+      - ":9090"
+    user: 501:20
+  postgres:
+    image: postgres:15.3
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - "5672:5672"
+  database-service-worker:
+    build: ./database-service
+    environment:
+      CELERY_BROKER_URI: pyamqp://test1@rabbitmq//
+      CELERY_QUEUE_NAME: database_tasks
+      DATABASE_CONNECTION_STRING: postgresql+psycopg2://postgres:postgres@postgres/databases
+      S3_ENDPOINT_URL: http://minio:9000
+      BACKUPS_BUCKET_NAME: backups
+      AWS_SECRET_ACCESS_ID: minio_secret_key
+      AWS_ACCESS_KEY_ID: minio_access_key
+    depends_on:
+      - minio
+      - postgres
+      - rabbitmq
+    entrypoint:
+      - celery
+      - -A
+      - app.Database.database_tasks
+      - worker
+  database-service-api:
+    build: ./database-service
+    ports:
+      - "8080:80"
+    environment:
+      CELERY_BROKER_URI: pyamqp://test2@rabbitmq//
+      CELERY_QUEUE_NAME: database_tasks
+      DATABASE_CONNECTION_STRING: postgresql+psycopg2://postgres:postgres@postgres/databases
+      S3_ENDPOINT_URL: http://minio:9000
+      BACKUPS_BUCKET_NAME: backups
+      AWS_SECRET_ACCESS_ID: minio_secret_key
+      AWS_ACCESS_KEY_ID: minio_access_key
+    depends_on:
+      - minio
+      - postgres
+      - rabbitmq
+      - database-service-worker
+networks:
+  postgresql-backups:
